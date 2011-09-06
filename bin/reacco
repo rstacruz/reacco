@@ -1,0 +1,75 @@
+#!/usr/bin/env ruby
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'reacco'
+
+module Params
+  def extract(what)   i = index(what) and slice!(i, 2)[1] end;
+end
+ARGV.extend Params
+
+def tip(str)
+  $stderr.write "#{str}\n"
+end
+
+if ARGV == ['-h'] || ARGV == ['--help']
+  tip "Usage: #{$0} [readme file] [options] [--output docpath]"
+  tip "Generates nice HTML."
+  tip ""
+  tip "Options:"
+  tip "      --literate         Move <pre> blocks to the right."
+  tip "      --hgroup           Make everything before the first <hr> into a nice heading group."
+  tip "      --brief            Enlarges the first <p>."
+  tip "  -a, --awesome          All of the above."
+  tip ""
+  tip "CSS:"
+  tip "      --css [FILE]       More CSS to be used."
+  tip ""
+  tip "More:"
+  tip "      --github [USR/REPO]  Fork me on GitHub, yo."
+  tip "  -o, --output [PATH]    Sets the path to put HTML files in. Defaults to 'doc/'."
+  tip "  -t, --template [PATH]  The template to use, if you don't want the default."
+  tip ""
+  exit
+
+else
+  # Build options from arguments.
+  switches = [:hgroup, :literate, :brief]
+  docpath  = ARGV.extract('-o') || ARGV.extract('--output') || 'doc'
+  template = ARGV.extract('-t') || ARGV.extract('--template') || nil
+  github   = ARGV.extract('--github') || nil
+  css      = ARGV.extract('--css') || nil
+  awesome  = ARGV.delete('-a')  || ARGV.extract('--awesome')
+  options  = Hash.new
+
+  switches.each do |opt|
+    options[opt] = true  if ARGV.delete("--#{opt}")
+  end
+
+  switches.each { |opt| options[opt] = true }  if awesome
+
+  options[:github] = github  if github
+  options[:readme] = ARGV.shift  if ARGV.any?
+
+  # Lets find the readme.
+  readme = Reacco::Readme.new(options)
+  unless readme.exists?
+    tip "Readme file not found."
+    exit 60
+  end
+
+  # Now let's generate it.
+  gen  = Reacco::Generator.new(readme, docpath, template, css)
+  unless gen.template?
+    tip "Invalid template."
+    tip "A template must at least have an index.xxx page."
+    exit 61
+  end
+
+  gen.write! { |file| tip "* #{file}" }
+
+  # AHHH YYEAAAHHH!
+  tip "Construction complete."
+end
+
+
+#tip Reacco.html(:hgroup => true, :literate => true, :brief => true)

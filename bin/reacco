@@ -17,16 +17,14 @@ if ARGV == ['-h'] || ARGV == ['--help']
   tip ""
   tip "Options:"
   tip "      --literate         Move <pre> blocks to the right."
-  tip "      --hgroup           Make everything before the first <hr> into a nice heading group."
-  tip "      --brief            Enlarges the first <p>."
-  tip "      --sections         Segregate things into <section>s."
   tip "  -a, --awesome          All of the above."
   tip ""
   tip "CSS:"
-  tip "      --css [FILE]       More CSS to be used."
+  tip "      --css [FILE]       Append the CSS from that file to the generated CSS."
   tip ""
   tip "More:"
-  tip "      --github [USR/REPO]  Fork me on GitHub, yo."
+  tip "      --github [REPO]    Adds a 'Fork me on GitHub' badge. Repo should be in"
+  tip "                         'username/reponame' format."
   tip "  -o, --output [PATH]    Sets the path to put HTML files in. Defaults to 'doc/'."
   tip "  -t, --template [PATH]  The template to use, if you don't want the default."
   tip ""
@@ -34,7 +32,7 @@ if ARGV == ['-h'] || ARGV == ['--help']
 
 else
   # Build options from arguments.
-  switches = [:literate, :sections]
+  switches = [:literate]
   docpath  = ARGV.extract('-o') || ARGV.extract('--output') || 'doc'
   template = ARGV.extract('-t') || ARGV.extract('--template') || nil
   github   = ARGV.extract('--github') || nil

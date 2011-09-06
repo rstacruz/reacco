@@ -43,6 +43,7 @@ module Reacco
         html = Nokogiri::HTML(md)
 
         html = pre_lang(html)
+        html = heading_id(html)
         html = wrap_hgroup(html)    if @options[:hgroup]
         html = move_pre(html)       if @options[:literate]
         html = brief_first_p(html)  if @options[:brief]
@@ -75,15 +76,12 @@ module Reacco
     include Filters::Hgroup
     include Filters::Literate
     include Filters::PreLang
+    include Filters::HeadingID
 
     # Returns the Markdown processor.
     def markdown
       Redcarpet::Markdown.new(Redcarpet::Render::HTML,
         :fenced_code_blocks => true)
-    end
-
-    def slugify(str)
-      str.downcase.scan(/[a-z0-9\-]+/).join('_')
     end
   end
 end

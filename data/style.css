@@ -9,6 +9,9 @@ body {
   font-size: 11pt;
   line-height: 1.5; }
 
+::-moz-selection { background: #88a; color: #fff; text-shadow: none; }
+::selection      { background: #88a; color: #fff; text-shadow: none; }
+
 h1, h2, h3, h4, h5, h6, p, ol, ul, pre, ol>li {
   max-width: 500px;
   margin: 20px 0; }

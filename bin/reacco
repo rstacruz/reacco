@@ -19,6 +19,7 @@ if ARGV == ['-h'] || ARGV == ['--help']
   tip "      --literate         Move <pre> blocks to the right."
   tip "      --hgroup           Make everything before the first <hr> into a nice heading group."
   tip "      --brief            Enlarges the first <p>."
+  tip "      --sections         Segregate things into <section>s."
   tip "  -a, --awesome          All of the above."
   tip ""
   tip "CSS:"
@@ -33,7 +34,7 @@ if ARGV == ['-h'] || ARGV == ['--help']
 
 else
   # Build options from arguments.
-  switches = [:hgroup, :literate, :brief]
+  switches = [:hgroup, :literate, :brief, :sections]
   docpath  = ARGV.extract('-o') || ARGV.extract('--output') || 'doc'
   template = ARGV.extract('-t') || ARGV.extract('--template') || nil
   github   = ARGV.extract('--github') || nil

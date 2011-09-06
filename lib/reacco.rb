@@ -57,7 +57,7 @@ module Reacco
         html = wrap_hgroup(html)    if @options[:hgroup]
         html = move_pre(html)       if @options[:literate]
         html = brief_first_p(html)  if @options[:brief]
-        html = section_wrap(html)   # Aaaalllways
+        html = section_wrap(html)   if @options[:sections]
 
         html
       end

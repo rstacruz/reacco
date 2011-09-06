@@ -8,13 +8,6 @@ module Reacco
 
         html
       end
-
-    private
-      # Turns text into a slug.
-      # "Install instructions" => "install_instructions"
-      def slugify(str)
-        str.downcase.scan(/[a-z0-9\-]+/).join('_')
-      end
     end
   end
 end

@@ -83,5 +83,11 @@ module Reacco
       Redcarpet::Markdown.new(Redcarpet::Render::HTML,
         :fenced_code_blocks => true)
     end
+
+    # Turns text into a slug.
+    # "Install instructions" => "install_instructions"
+    def slugify(str)
+      str.downcase.scan(/[a-z0-9\-]+/).join('_')
+    end
   end
 end

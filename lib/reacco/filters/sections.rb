@@ -16,7 +16,7 @@ module Reacco
 
             # Create the <section>.
             section = Nokogiri::XML::Node.new('section', html)
-            section['class'] = h
+            section['class'] = "#{h} #{slugify alpha.content}"
             alpha.add_previous_sibling(section)
             section_nodes.each { |tag| section.add_child tag }
           end

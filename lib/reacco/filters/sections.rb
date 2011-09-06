@@ -29,6 +29,7 @@ module Reacco
       def from_x_until(alpha, name)
         omega = nil
         n = alpha
+
         while true
           n = n.next_sibling
           break if n.nil? || n.name == name
@@ -44,8 +45,8 @@ module Reacco
 
         first.parent.children.each do |node|
           started = true  if node == first
-          break  if node == last
           nodes << node  if started
+          break  if node == last
         end
 
         nodes

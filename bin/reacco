@@ -34,7 +34,7 @@ if ARGV == ['-h'] || ARGV == ['--help']
 
 else
   # Build options from arguments.
-  switches = [:hgroup, :literate, :brief, :sections]
+  switches = [:literate, :sections]
   docpath  = ARGV.extract('-o') || ARGV.extract('--output') || 'doc'
   template = ARGV.extract('-t') || ARGV.extract('--template') || nil
   github   = ARGV.extract('--github') || nil

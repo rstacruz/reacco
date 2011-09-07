@@ -12,7 +12,7 @@ def tip(str)
 end
 
 if ARGV == ['-h'] || ARGV == ['--help']
-  tip "Usage: #{$0} [readme file] [options] [--output docpath]"
+  tip "Usage: reacco [options]"
   tip "Generates nice HTML."
   tip ""
   tip "Options:"
@@ -22,6 +22,9 @@ if ARGV == ['-h'] || ARGV == ['--help']
   tip "Theming:"
   tip "      --css FILE         Append the CSS from that file to the generated CSS."
   tip "  -t, --template PATH    The template to use, if you don't want the default."
+  tip ""
+  tip "API extraction:"
+  tip "      --api PATH         Where to get stuff."
   tip ""
   tip "More:"
   tip "      --github REPO      Adds a 'Fork me on GitHub' badge. Repo should be in"
@@ -40,6 +43,11 @@ else
   awesome  = ARGV.delete('-a')  || ARGV.extract('--awesome')
   options  = Hash.new
 
+  extract = Array.new
+  while (x = ARGV.extract('--api'))
+    extract << x
+  end
+
   switches.each do |opt|
     options[opt] = true  if ARGV.delete("--#{opt}")
   end
@@ -47,13 +55,26 @@ else
   switches.each { |opt| options[opt] = true }  if awesome
 
   options[:github] = github  if github
-  options[:readme] = ARGV.shift  if ARGV.any?
+
+  if ARGV.any?
+    puts "Invalid usage. See `reacco --help` for help."
+    exit 60
+  end
 
   # Lets find the readme.
   readme = Reacco::Readme.new(options)
   unless readme.exists?
     tip "Readme file not found."
     exit 60
+  end
+
+  # If we need to extract API, let's do it.
+  if extract.any?
+    blocks = extract.map { |path|
+      Reacco::Extractor.new(Dir["#{path}/**/*"]).blocks
+    }.flatten
+
+    blocks.each { |blk| readme.inject_api_block blk.to_html }
   end
 
   # Now let's generate it.

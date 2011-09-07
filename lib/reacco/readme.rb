@@ -1,3 +1,5 @@
+# Reacco::Readme [class]
+# A readme file.
 module Reacco
   class Readme
     def initialize(options={})
@@ -5,7 +7,8 @@ module Reacco
       @options = options
     end
     
-    # The path to the README file.
+    # file [method]
+    # The path to the README file. Returns nil if not available.
     def file
       @file ||= (Dir['README.*'].first || Dir['readme.*'].first || Dir['README'].first)
     end
@@ -14,33 +17,59 @@ module Reacco
       @file = file
     end
 
+    # Switches [method]
     # The switches, like 'literate' and 'hgroup'. Returns an array of strings.
     def switches
       @options.keys.map { |k| k.to_s }
     end
 
+    # exists? [method]
+    # Returns true if the file (given in the constructor) exists.
     def exists?
       file && File.exists?(file)
     end
 
+    # raw [method]
     # Returns raw Markdown markup.
     def raw
       @raw ||= File.read(file)
     end
 
+    # title [method]
     # Returns a string of the title of the document (the first h1).
     def title
       @title ||= begin
-        h1 = (h1 = raw_html.at_css('h1')) && h1.text
+        h1 = (h1 = doc.at_css('h1')) && h1.text
         h1 || File.basename(Dir.pwd)
       end
     end
 
+    # raw_html [method]
+    # Raw HTML data.
+    def raw_html
+      @raw_html ||= markdown.render(raw)
+    end
+
+    def raw_html=(str)
+      @raw_html = str
+    end
+
+    # inject_api_block [method]
+    # Adds an API block. Takes an `html` argument.
+    def inject_api_block(html)
+      @api_blocks = "#{api_blocks}\n#{html}\n"
+    end
+
+    def api_blocks
+      @api_blocks ||= ""
+    end
+
+    # doc [method]
     # Returns HTML as a Nokogiri document.
-    def raw_html(options={})
-      @raw_html ||= begin
-        md   = markdown.render(raw)
-        html = Nokogiri::HTML(md)
+    def doc(options={})
+      @doc ||= begin
+        add_api(api_blocks)
+        html = Nokogiri::HTML(raw_html)
 
         html = pre_lang(html)
         html = heading_id(html)
@@ -53,11 +82,13 @@ module Reacco
       end
     end
 
+    # html [method]
     # Returns body's inner HTML.
     def html
-      raw_html.at_css('body').inner_html
+      doc.at_css('body').inner_html
     end
 
+    # github [method]
     # Returns the GitHub URL, or nil if not applicable.
     def github
       "https://github.com/#{@options[:github]}"  if @options[:github]
@@ -78,14 +109,31 @@ module Reacco
     include Filters::PreLang
     include Filters::HeadingID
 
-    # Returns the Markdown processor.
-    def markdown
-      Redcarpet::Markdown.new(Redcarpet::Render::HTML,
-        :fenced_code_blocks => true)
+    # Puts `blocks` inside `raw_html`.
+    def add_api(blocks)
+      re = %r{[\[\(]api reference goes here[\]\)]}i
+
+      if raw_html =~ re
+        raw_html.gsub! re, blocks
+      else
+        raw_html += blocks
+      end
     end
 
+    # markdown [private method]
+    # Returns the Markdown processor.
+    #
+    #     markdown.render(md)
+    #
+    def markdown
+      Reacco.markdown
+    end
+
+    # slugify [private method]
     # Turns text into a slug.
-    # "Install instructions" => "install_instructions"
+    #
+    #     "Install instructions" => "install_instructions"
+    #
     def slugify(str)
       str.downcase.scan(/[a-z0-9\-]+/).join('_')
     end

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Reacco</title>
+    <link href="style.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Shanti:400|PT+Sans:700,700italic' rel='stylesheet' type='text/css'>
+</head>
+<body class='literate github'>
+  
+    <a href="https://github.com/rstacruz/reacco"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"></a>
+  
+  <div id='all'>
+
+
+
+<hgroup class="header"><h1 id="reacco">Reacco</h1>
+<h4>Readme documentation prettifier</h4></hgroup><p class=" brief">In progress. Check out http://ricostacruz.com/sinatra-assetpack for an example.</p>
+
+<section class=" h1 api_reference"><h1 id="api_reference">API reference</h1>
+
+<p>
+</p>
+<section class="api h2 reacco_module"><h2 class="api" id="reacco_module">Reacco <span class="type">module</span>
+</h2>
+<p>This is the main module.</p>
+
+<section class="api h3 root_class_method"><h3 class="api" id="root_class_method">root <span class="type">class method</span>
+</h3>
+<pre class=" lang- prettyprint right"><code>Reacco.root      #=&gt; '/usr/local/ruby/gems/reacco-0.0.1'
+</code></pre>
+<p>Returns the root path of the Reacco gem.
+You may pass additional parameters.</p>
+
+<br class="post-pre">
+
+</section><section class="api after-pre h3 markdown_class_method"><h3 class="api after-pre" id="markdown_class_method">markdown <span class="type">class method</span>
+</h3>
+<p>Returns the Redcarpet Markdown processor.</p>
+
+</section></section><section class="api h2 reacco_extractor_class"><h2 class="api" id="reacco_extractor_class">Reacco::Extractor <span class="type">class</span>
+</h2>
+<p>Extracts comments from list of files.</p>
+
+<section class=" h4 instantiating"><h4>Instantiating</h4>
+<pre class=" lang- prettyprint right"><code>ex = Extractor.new(Dir['./**/*.rb'])
+</code></pre>
+
+<p>Call the constructor with a list of files.</p>
+
+<br class="post-pre">
+
+<section class="api after-pre h3 blocks_method"><h3 class="api after-pre" id="blocks_method">blocks <span class="type">method</span>
+</h3>
+<pre class=" lang- prettyprint right"><code>ex.blocks
+ex.blocks.map { |b| puts "file: #{b.file}" }
+</code></pre>
+<p>Returns an array of <code>Block</code> instances.</p>
+
+<br class="post-pre">
+
+</section><section class="api after-pre h3 get_blocks_str_filename_private_method"><h3 class="api after-pre" id="get_blocks_str_filename_private_method">get_blocks<span class="args">(str, [filename])</span> <span class="type">private method</span>
+</h3>
+<p>Returns the documentation blocks in a given <code>str</code>ing.
+If <code>filename</code> is given, it will be set as the <em>source_file</em>.</p>
+
+</section></section></section><section class="api h2 reacco_extractor_block_class"><h2 class="api" id="reacco_extractor_block_class">Reacco::Extractor::Block <span class="type">class</span>
+</h2>
+<p>An extractor block.</p>
+
+<section class="api h3 body_method"><h3 class="api" id="body_method">body <span class="type">method</span>
+</h3>
+<p>Returns the body text as a raw string.</p>
+
+</section><section class="api h3 title_method"><h3 class="api" id="title_method">title <span class="type">method</span>
+</h3>
+<p>Returns the title of the block.</p>
+
+</section><section class="api h3 children_method"><h3 class="api" id="children_method">children <span class="type">method</span>
+</h3>
+<p>Returns an array of child blocks.</p>
+
+</section><section class="api h3 method"><h3 class="api" id="method">&lt;&lt; <span class="type">method</span>
+</h3>
+<p>Adds a block to it's children.</p>
+
+</section><section class="api h3 to_html_method"><h3 class="api" id="to_html_method">to_html <span class="type">method</span>
+</h3>
+<p>Returns the raw HTML to be included in the documentation.</p>
+
+</section></section><section class="api h2 reacco_readme_class"><h2 class="api" id="reacco_readme_class">Reacco::Readme <span class="type">class</span>
+</h2>
+<p>A readme file.</p>
+
+<section class="api h3 file_method"><h3 class="api" id="file_method">file <span class="type">method</span>
+</h3>
+<p>The path to the README file. Returns nil if not available.</p>
+
+</section><section class="api h3 switches_method"><h3 class="api" id="switches_method">Switches <span class="type">method</span>
+</h3>
+<p>The switches, like 'literate' and 'hgroup'. Returns an array of strings.</p>
+
+</section><section class="api h3 exists_method"><h3 class="api" id="exists_method">exists? <span class="type">method</span>
+</h3>
+<p>Returns true if the file (given in the constructor) exists.</p>
+
+</section><section class="api h3 raw_method"><h3 class="api" id="raw_method">raw <span class="type">method</span>
+</h3>
+<p>Returns raw Markdown markup.</p>
+
+</section><section class="api h3 title_method"><h3 class="api" id="title_method">title <span class="type">method</span>
+</h3>
+<p>Returns a string of the title of the document (the first h1).</p>
+
+</section><section class="api h3 raw_html_method"><h3 class="api" id="raw_html_method">raw_html <span class="type">method</span>
+</h3>
+<p>Raw HTML data.</p>
+
+</section><section class="api h3 inject_api_block_method"><h3 class="api" id="inject_api_block_method">inject_api_block <span class="type">method</span>
+</h3>
+<p>Adds an API block. Takes an <code>html</code> argument.</p>
+
+</section><section class="api h3 doc_method"><h3 class="api" id="doc_method">doc <span class="type">method</span>
+</h3>
+<p>Returns HTML as a Nokogiri document.</p>
+
+</section><section class="api h3 html_method"><h3 class="api" id="html_method">html <span class="type">method</span>
+</h3>
+<p>Returns body's inner HTML.</p>
+
+</section><section class="api h3 github_method"><h3 class="api" id="github_method">github <span class="type">method</span>
+</h3>
+<p>Returns the GitHub URL, or nil if not applicable.</p>
+
+</section><section class="api h3 markdown_private_method"><h3 class="api" id="markdown_private_method">markdown <span class="type">private method</span>
+</h3>
+<pre class=" lang- prettyprint right"><code>markdown.render(md)
+</code></pre>
+<p>Returns the Markdown processor.</p>
+
+<br class="post-pre">
+
+</section><section class="api after-pre h3 slugify_private_method"><h3 class="api after-pre" id="slugify_private_method">slugify <span class="type">private method</span>
+</h3>
+<pre class=" lang- prettyprint right"><code>"Install instructions" =&gt; "install_instructions"
+</code></pre>
+<p>Turns text into a slug.</p>
+
+<br class="post-pre">
+
+
+</section></section><section class=" after-pre h2 acknowledgements"><h2 id="acknowledgements" class=" after-pre">Acknowledgements</h2>
+
+<p>© 2011, Rico Sta. Cruz. Released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT 
+License</a>.</p>
+
+<p>Reacco is authored and maintained by <a href="http://ricostacruz.com">Rico Sta. Cruz</a> with help from it's 
+<a href="http://github.com/rstacruz/reacco/contributors">contributors</a>. It is sponsored by my startup, <a href="http://sinefunc.com">Sinefunc, Inc</a>.</p>
+
+<ul>
+<li>
+<a href="http://ricostacruz.com">My website</a> (ricostacruz.com)</li>
+<li>
+<a href="http://sinefunc.com">Sinefunc, Inc.</a> (sinefunc.com)</li>
+<li>
+<a href="http://github.com/rstacruz">Github</a> (@rstacruz)</li>
+<li>
+<a href="http://twitter.com/rstacruz">Twitter</a> (@rstacruz)</li>
+</ul></section></section></div>
+  <script type='text/javascript' src='http://cachedcommons.org/cache/prettify/1.0.0/javascripts/prettify-min.js'></script>
+  <script>prettyPrint();</script>
+</body>
+</html>

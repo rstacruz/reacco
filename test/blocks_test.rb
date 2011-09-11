@@ -5,14 +5,10 @@ class BlocksTest < UnitTest
     @ex = Reacco::Extractor.new(Dir[root 'lib/**/*.rb'])
   end
 
-  should "extract comments with parents properly" do
+  should "extract comments" do
     # From Reacco.root
     block = @ex.blocks.detect { |blk| blk.title == "root" && blk.type == "class method" }
     assert ! block.nil?
-
-    assert block.parent
-    assert block.parent.title == "Reacco"
-    assert block.parent.type  == "module"
   end
 
   should "htmlize properly" do

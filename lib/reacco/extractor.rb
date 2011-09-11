@@ -47,29 +47,26 @@ module Reacco
     #
     def get_blocks(str, filename=nil)
       arr    = get_comment_blocks(str)
-      parent = nil
 
       arr.map do |hash|
         block = hash[:block]
 
         # Ensure the first line matches.
         # This matches:
-        #   "name [type]"
-        #   "name(args) [type]"
-        re = /^(.*?) ?(\(.*?\))? \[([a-z ]+)\]$/
+        #   "### name [type]"
+        #   "## name(args) [type]"
+        re = /^(\#{1,6}) (.*?) ?(\(.*?\))? ?(?:\[([a-z ]+)\])?$/
         block.first =~ re  or next
 
         blk = Extractor::Block.new \
-          :type        => $3,
-          :title       => $1,
-          :args        => $2,
-          :parent      => parent,
+          :type        => $4,
+          :tag         => "h#{$1.strip.size}",
+          :title       => $2,
+          :args        => $3,
           :source_line => hash[:line] + block.size + 1,
           :source_file => filename,
           :body        => (block[1..-1].join("\n") + "\n")
 
-        parent << blk  if parent
-        parent ||= blk
         blk
     end.compact
     end

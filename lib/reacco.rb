@@ -4,13 +4,13 @@ require 'tilt'
 require 'ostruct'
 require 'fileutils'
 
-# Reacco [module]
+# ## Reacco [module]
 # This is the main module.
 #
 module Reacco
   extend self
 
-  # root [class method]
+  # ### root [class method]
   # Returns the root path of the Reacco gem.
   # You may pass additional parameters.
   #
@@ -20,7 +20,7 @@ module Reacco
     File.join File.expand_path('../../', __FILE__), *a
   end
 
-  # markdown [class method]
+  # ### markdown [class method]
   # Returns the Redcarpet Markdown processor.
   def markdown
     Redcarpet::Markdown.new(Redcarpet::Render::HTML,

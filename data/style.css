@@ -48,7 +48,6 @@ h1 {
 
 h1, h2, h3, h4, h5, h6 {
   text-shadow: 2px 2px 0 rgba(55, 55, 55, 0.1);
-  margin-top: 40px;
   color: #568;
   font-weight: normal;
   font-family: shanti, palatino, serif; }
@@ -77,9 +76,9 @@ h3 {
   margin-top: 40px; }
 
 h1 { font-size: 30pt; }
-h2 { font-size: 26pt; }
+h2 { font-size: 23pt; }
 h3 { font-size: 14pt; }
-h4 { font-size: 12pt; }
+h4 { font-size: 14pt; }
 h5 { font-size: 10pt; }
 h6 { font-size: 10pt; }
 
@@ -177,6 +176,11 @@ section {
   padding-left: 40px;
   margin-left: -40px;
   padding-right: 9000px; }
+
+section::after {
+  content: '';
+  display: table;
+  clear: both; }
 
 section.h2:nth-child(even) {
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);

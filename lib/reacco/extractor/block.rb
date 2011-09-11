@@ -17,10 +17,11 @@ module Reacco
 
       def initialize(options)
         @body        = options[:body]
-        @type        = options[:type].downcase
+        @type        = options[:type] && options[:type].downcase
         @args        = options[:args]
         @title       = options[:title]
         @parent      = options[:parent]
+        @tag         = options[:tag]
         @source_line = options[:source_line]
         @source_path = options[:source_path]
       end
@@ -48,7 +49,7 @@ module Reacco
 
       def transform!
         # Create heading.
-        name = parent ? "h3" : "h2"
+        name = @tag
         node = Nokogiri::XML::Node.new(name, doc)
         node['class'] = 'api'
         node.content  = title
@@ -70,9 +71,6 @@ module Reacco
 
         # Add heading.
         doc.at_css('body>*:first-child').add_previous_sibling node
-
-        # All headings should be h4.
-        doc.css('h1, h2, h3, h4, h5, h6').each { |h| h.name == 'h4' }
         doc
       end
 

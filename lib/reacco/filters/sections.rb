@@ -3,7 +3,8 @@ module Reacco
     module Sections
       # Wraps in sections.
       def section_wrap(html)
-        %w(h1 h2 h3 h4 h5).each do |h|
+        headings = %w(h1 h2 h3 h4 h5)
+        headings.each do |h|
           nodes = html.css(h)
           nodes.each do |alpha|
             # For those affected by --hgroup, don't bother.
@@ -11,7 +12,7 @@ module Reacco
             next  unless alpha.parent
 
             # Find the boundary, and get the nodes until that one.
-            omega         = from_x_until(alpha, alpha.name)
+            omega         = from_x_until(alpha, *headings[0..headings.index(alpha.name)])
             section_nodes = between(alpha, omega)
 
             # Create the <section>.
@@ -26,13 +27,19 @@ module Reacco
       end
 
     private
-      def from_x_until(alpha, name)
+      def from_x_until(alpha, *names)
         omega = nil
         n = alpha
 
         while true
           n = n.next_sibling
-          break if n.nil? || n.name == name
+          break if n.nil?
+
+          name = n.name
+          if name == 'section'
+            name = (h = n.at_css('h1, h2, h3, h4, h5, h6')) && h.name
+          end
+          break if !name || names.include?(name)
           omega = n
         end
 

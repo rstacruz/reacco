@@ -76,6 +76,13 @@ end
 
 For usage and API reference, please see http://ricostacruz.com/reacco. [](#api_reference)
 
+Warning
+-------
+
+**Here be dragons!** this is mostly made for my own projects, so I may change 
+things quite often (though I'd try to be mostly API-compatible with older
+versions).
+
 Acknowledgements
 ----------------
 

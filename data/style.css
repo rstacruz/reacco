@@ -285,7 +285,6 @@ aside#toc {
 aside#toc h1,
 aside#toc h2,
 aside#toc h3 {
-  overflow: hidden;
   margin: 10px 0;
   padding: 0;
   font-size: 1.1em; }
@@ -302,6 +301,7 @@ aside#toc h3 {
 
 aside#toc h2 .type,
 aside#toc h3 .type {
+  margin-top: 2px;
   margin-left: 0; }
 
 aside#toc ul,
@@ -316,7 +316,10 @@ aside#toc h3 a {
   color: #333; }
 
 aside#toc a {
+  height: 1.6em;
   overflow: hidden;
+  line-height: 1.6em;
+  position: relative;
   display: block;
   border-bottom: 0;
   color: #555; }
@@ -325,11 +328,10 @@ aside#toc a span.args {
   display: none; }
 
 aside#toc a span.type {
-  font-size: 0.8em;
+  font-weight: normal;
+  color: #999;
   text-transform: uppercase;
-  color: #999; }
-
-aside#toc .type {
+  font-size: 8pt;
   float: right; }
 
 aside#toc::-webkit-scrollbar {  

@@ -44,6 +44,10 @@ module Reacco
       end
     end
 
+    def title?
+      title.to_s.size > 0
+    end
+
     # ### raw_html [method]
     # Raw HTML data.
     def raw_html
@@ -77,6 +81,7 @@ module Reacco
         html = move_pre(html)       if @options[:literate]
         html = brief_first_p(html)
         html = section_wrap(html)
+        html = make_toc(html)       if @options[:toc]
 
         html
       end
@@ -108,6 +113,7 @@ module Reacco
     include Filters::Literate
     include Filters::PreLang
     include Filters::HeadingID
+    include Filters::TOC
 
     # Puts `blocks` inside `raw_html`.
     def add_api(blocks)

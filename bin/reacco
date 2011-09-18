@@ -17,7 +17,7 @@ if ARGV == ['-h'] || ARGV == ['--help']
   tip ""
   tip "Options:"
   tip "      --literate         Move <pre> blocks to the right."
-  tip "  -a, --awesome          All of the above."
+  tip "      --toc              Show a table of contents."
   tip ""
   tip "Theming:"
   tip "      --css FILE         Append the CSS from that file to the generated CSS."
@@ -35,7 +35,7 @@ if ARGV == ['-h'] || ARGV == ['--help']
 
 else
   # Build options from arguments.
-  switches = [:literate]
+  switches = [:literate, :toc]
   docpath  = ARGV.extract('-o') || ARGV.extract('--output') || 'doc'
   template = ARGV.extract('-t') || ARGV.extract('--template') || nil
   github   = ARGV.extract('--github') || nil

@@ -38,6 +38,7 @@ module Reacco
     autoload :Literate,   'reacco/filters/literate'
     autoload :PreLang,    'reacco/filters/prelang'
     autoload :HeadingID,  'reacco/filters/headingid'
+    autoload :TOC,        'reacco/filters/toc'
   end
 end
 

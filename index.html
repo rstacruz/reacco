@@ -6,7 +6,7 @@
     <link href="style.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Shanti:400|PT+Sans:700,700italic' rel='stylesheet' type='text/css'>
 </head>
-<body class='literate github'>
+<body class='literate toc github'>
   
     <a href="https://github.com/rstacruz/reacco"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"></a>
   
@@ -14,20 +14,103 @@
 
 
 
-<hgroup class="header"><h1 id="reacco">Reacco</h1>
-<h4>Readme documentation prettifier</h4></hgroup><p class=" brief">In progress. Check out http://ricostacruz.com/sinatra-assetpack for an example.</p>
+<hgroup class="header"><h1 id="reacco"><a href="http://ricostacruz.com/reacco">Reacco</a></h1>
+<h4>Readme documentation prettifier</h4></hgroup><p class=" brief">Reacco is a dead simple documentation generator that lets you document your 
+project using Markdown.</p>
 
-<section class=" h1 api_reference"><h1 id="api_reference">API reference</h1>
+<section class=" h2 usage"><h2 id="usage">Usage</h2>
 
-<p>
-</p>
+<section class=" h4 installation"><h4>Installation</h4>
+<pre class=" lang- prettyprint right"><code>$ gem install reacco
+</code></pre>
+
+<p>Install Reacco first. It is a Ruby gem.</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h4 generation"><h4 class=" after-pre">Generation</h4>
+<pre class=" lang- prettyprint right"><code>$ reacco
+</code></pre>
+
+<p>To generate documentation, type <code>reacco</code>. This takes your <code>README.md</code> file and 
+prettifies it.</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h4 literate_style_blocks"><h4 class=" after-pre">Literate style blocks</h4>
+<pre class=" lang- prettyprint right"><code>$ reacco --literate
+</code></pre>
+
+<p>To make literate-style blocks (that is, code on the right, explanation on the
+left), use <code>reacco --literate</code>.</p>
+
+<br class="post-pre">
+
+</section></section><section class=" after-pre h2 documenting_api"><h2 id="documenting_api" class=" after-pre">Documenting API</h2>
+<pre class=" lang- prettyprint right"><code>$ reacco --literate --api lib/
+</code></pre>
+
+<p>To extract documentation from your code files, add <code>--api &lt;path here&gt;</code>. This 
+extracts comment blocks from files in that path.</p>
+
+<p>As Reacco only parses out Markdown from your comments, almost all programming 
+languages are supported. It does not care about code at all, just comments.</p>
+
+<br class="post-pre">
+
+<section class=" after-pre h4 documenting_classes"><h4 class=" after-pre">Documenting classes</h4>
+<pre class=" lang- prettyprint right"><code class="ruby"># ## Reacco [class]
+# The main class.
+#
+# Class documentation goes here in Markdown form.
+#
+class Reacco
+  ...
+end
+</code></pre>
+
+<p>You will need to add Markdown comment blocks to your code. The first line needs 
+to be a Markdown heading in the form of <code>### &lt;heading name&gt;</code>.</p>
+
+<p>Classes are often made to be H2's.</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h4 documenting_class_methods"><h4 class=" after-pre">Documenting class methods</h4>
+<pre class=" lang- prettyprint right"><code class="ruby"># ## Reacco [class]
+# The main class.
+#
+class Reacco
+  # ### version [class method]
+  # Returns a string of the library's version.
+  #
+  # #### Example
+  # This example returns the version.
+  #
+  #     Reacco.version
+  #     #=&gt; "0.0.1"
+  #
+  def self.version
+    ...
+  end
+end
+</code></pre>
+
+<p>Class methods are often made as H3's. Sub-sections are often always H4's.</p>
+
+<br class="post-pre">
+
+<section class=" after-pre h1 api_reference"><h1 id="api_reference" class=" after-pre">API reference</h1>
+
+
 <section class="api h2 reacco_module"><h2 class="api" id="reacco_module">Reacco <span class="type">module</span>
 </h2>
 <p>This is the main module.</p>
 
 <section class="api h3 root_class_method"><h3 class="api" id="root_class_method">root <span class="type">class method</span>
 </h3>
-<pre class=" lang- prettyprint right"><code>Reacco.root      #=&gt; '/usr/local/ruby/gems/reacco-0.0.1'
+<pre class=" lang- prettyprint right"><code>Reacco.root
+#=&gt; '/usr/local/ruby/gems/reacco-0.0.1'
 </code></pre>
 <p>Returns the root path of the Reacco gem.
 You may pass additional parameters.</p>
@@ -36,103 +119,139 @@ You may pass additional parameters.</p>
 
 </section><section class="api after-pre h3 markdown_class_method"><h3 class="api after-pre" id="markdown_class_method">markdown <span class="type">class method</span>
 </h3>
-<p>Returns the Redcarpet Markdown processor.</p>
-
-</section></section><section class="api h2 reacco_extractor_class"><h2 class="api" id="reacco_extractor_class">Reacco::Extractor <span class="type">class</span>
-</h2>
-<p>Extracts comments from list of files.</p>
-
-<section class=" h4 instantiating"><h4>Instantiating</h4>
-<pre class=" lang- prettyprint right"><code>ex = Extractor.new(Dir['./**/*.rb'])
+<pre class=" lang- prettyprint right"><code>Reacco.markdown
+#=&gt; #&lt;Redcarpet::Markdown ...&gt;
 </code></pre>
-
-<p>Call the constructor with a list of files.</p>
+<p>Returns the Redcarpet Markdown processor.  This is an instance of
+<code>Redcarpet</code> with all the right options plugged in.</p>
 
 <br class="post-pre">
 
-<section class="api after-pre h3 blocks_method"><h3 class="api after-pre" id="blocks_method">blocks <span class="type">method</span>
-</h3>
-<pre class=" lang- prettyprint right"><code>ex.blocks
-ex.blocks.map { |b| puts "file: #{b.file}" }
-</code></pre>
-<p>Returns an array of <code>Block</code> instances.</p>
-
-<br class="post-pre">
-
-</section><section class="api after-pre h3 get_blocks_str_filename_private_method"><h3 class="api after-pre" id="get_blocks_str_filename_private_method">get_blocks<span class="args">(str, [filename])</span> <span class="type">private method</span>
-</h3>
-<p>Returns the documentation blocks in a given <code>str</code>ing.
-If <code>filename</code> is given, it will be set as the <em>source_file</em>.</p>
-
-</section></section></section><section class="api h2 reacco_extractor_block_class"><h2 class="api" id="reacco_extractor_block_class">Reacco::Extractor::Block <span class="type">class</span>
-</h2>
-<p>An extractor block.</p>
-
-<section class="api h3 body_method"><h3 class="api" id="body_method">body <span class="type">method</span>
-</h3>
-<p>Returns the body text as a raw string.</p>
-
-</section><section class="api h3 title_method"><h3 class="api" id="title_method">title <span class="type">method</span>
-</h3>
-<p>Returns the title of the block.</p>
-
-</section><section class="api h3 children_method"><h3 class="api" id="children_method">children <span class="type">method</span>
-</h3>
-<p>Returns an array of child blocks.</p>
-
-</section><section class="api h3 method"><h3 class="api" id="method">&lt;&lt; <span class="type">method</span>
-</h3>
-<p>Adds a block to it's children.</p>
-
-</section><section class="api h3 to_html_method"><h3 class="api" id="to_html_method">to_html <span class="type">method</span>
-</h3>
-<p>Returns the raw HTML to be included in the documentation.</p>
-
-</section></section><section class="api h2 reacco_readme_class"><h2 class="api" id="reacco_readme_class">Reacco::Readme <span class="type">class</span>
+</section></section><section class="api after-pre h2 reacco_readme_class"><h2 class="api after-pre" id="reacco_readme_class">Reacco::Readme <span class="type">class</span>
 </h2>
 <p>A readme file.</p>
 
+<section class=" h4 instanciating"><h4>Instanciating</h4>
+<pre class=" lang- prettyprint right"><code>readme = Reacco::Readme.new
+readme = Reacco::Readme.new [OPTIONS HASH]
+</code></pre>
+
+<p>This is often instanciated by the <code>reacco</code> executable, but you can instantiate
+it yourself like so. It's assumed the the base dir will be the current working
+directory.</p>
+
+<br class="post-pre">
+
+</section><section class=" after-pre h4 options"><h4 class=" after-pre">Options</h4>
+
+<p>Avaiable options are <em>(all are optional)</em>:</p>
+
+<ul>
+<li>
+<code>file</code> - String <em>(the filename of the README file)</em>
+</li>
+<li>
+<code>literate</code> - Boolean</li>
+<li>
+<code>toc</code> - Boolean</li>
+</ul>
 <section class="api h3 file_method"><h3 class="api" id="file_method">file <span class="type">method</span>
 </h3>
-<p>The path to the README file. Returns nil if not available.</p>
+<pre class=" lang- prettyprint right"><code>readme.file      #=&gt; "README.md"
+</code></pre>
+<p>The path to the README file. Returns <code>nil</code> if not available.</p>
 
-</section><section class="api h3 switches_method"><h3 class="api" id="switches_method">Switches <span class="type">method</span>
-</h3>
-<p>The switches, like 'literate' and 'hgroup'. Returns an array of strings.</p>
+<br class="post-pre">
 
-</section><section class="api h3 exists_method"><h3 class="api" id="exists_method">exists? <span class="type">method</span>
+</section><section class="api after-pre h3 switches_method"><h3 class="api after-pre" id="switches_method">switches <span class="type">method</span>
 </h3>
+<pre class=" lang- prettyprint right"><code>readme.switches  #=&gt; [ 'literate' ]
+</code></pre>
+<p>The switches, like <em>literate</em> and <em>toc</em>. Returns an array of strings.</p>
+
+<br class="post-pre">
+
+</section><section class="api after-pre h3 exists_method"><h3 class="api after-pre" id="exists_method">exists? <span class="type">method</span>
+</h3>
+<pre class=" lang- prettyprint right"><code>readme = Readme.new :file =&gt; 'non-existent-file.txt'
+readme.exists?
+#=&gt; false (maybe)
+</code></pre>
 <p>Returns true if the file (given in the constructor) exists.</p>
 
-</section><section class="api h3 raw_method"><h3 class="api" id="raw_method">raw <span class="type">method</span>
+<br class="post-pre">
+
+</section><section class="api after-pre h3 raw_method"><h3 class="api after-pre" id="raw_method">raw <span class="type">method</span>
 </h3>
+<pre class=" lang- prettyprint right"><code>readme.raw
+#=&gt; "# My project\n#### This is my project\n\n..."
+</code></pre>
 <p>Returns raw Markdown markup.</p>
 
-</section><section class="api h3 title_method"><h3 class="api" id="title_method">title <span class="type">method</span>
-</h3>
-<p>Returns a string of the title of the document (the first h1).</p>
+<br class="post-pre">
 
-</section><section class="api h3 raw_html_method"><h3 class="api" id="raw_html_method">raw_html <span class="type">method</span>
+</section><section class="api after-pre h3 title_method"><h3 class="api after-pre" id="title_method">title <span class="type">method</span>
 </h3>
-<p>Raw HTML data.</p>
+<pre class=" lang- prettyprint right"><code>readme.title
+#=&gt; "My project"
+</code></pre>
+<p>Returns a string of the title of the document. Often, this is the first
+H1, but if that's not available, then it is inferred from the current
+directory's name.</p>
 
-</section><section class="api h3 inject_api_block_method"><h3 class="api" id="inject_api_block_method">inject_api_block <span class="type">method</span>
+<br class="post-pre">
+
+</section><section class="api after-pre h3 raw_html_method"><h3 class="api after-pre" id="raw_html_method">raw_html <span class="type">method</span>
+</h3>
+<pre class=" lang- prettyprint right"><code>readme.raw_html
+#=&gt; "&lt;h1&gt;My project&lt;/h1&gt;..."
+</code></pre>
+<p>Returns a string of the raw HTML data built from the markdown source.
+This does not have the transformations applied to it yet.</p>
+
+<br class="post-pre">
+
+</section><section class="api after-pre h3 inject_api_block_method"><h3 class="api after-pre" id="inject_api_block_method">inject_api_block <span class="type">method</span>
 </h3>
 <p>Adds an API block. Takes an <code>html</code> argument.</p>
 
-</section><section class="api h3 doc_method"><h3 class="api" id="doc_method">doc <span class="type">method</span>
+</section><section class="api h3 doc_options_method"><h3 class="api" id="doc_options_method">doc<span class="args">([options])</span> <span class="type">method</span>
 </h3>
-<p>Returns HTML as a Nokogiri document.</p>
+<pre class=" lang- prettyprint right"><code>readme.doc
+#=&gt; #&lt;Nokogiri::HTML ...&gt;
+</code></pre>
+<p>Returns HTML as a Nokogiri document with all the transformations applied.</p>
 
-</section><section class="api h3 html_method"><h3 class="api" id="html_method">html <span class="type">method</span>
-</h3>
-<p>Returns body's inner HTML.</p>
+<br class="post-pre">
 
-</section><section class="api h3 github_method"><h3 class="api" id="github_method">github <span class="type">method</span>
+</section><section class="api after-pre h3 html_method"><h3 class="api after-pre" id="html_method">html <span class="type">method</span>
 </h3>
+<pre class=" lang- prettyprint right"><code>readme.raw_html
+#=&gt; "&lt;h1&gt;My project&lt;/h1&gt;..."
+</code></pre>
+<p>Returns body's inner HTML <em>with</em> transformatinos.</p>
+
+<br class="post-pre">
+
+</section><section class="api after-pre h3 github_method"><h3 class="api after-pre" id="github_method">github <span class="type">method</span>
+</h3>
+<pre class=" lang- prettyprint right"><code>readme.github
+#=&gt; "https://github.com/rstacruz/reacco"
+</code></pre>
 <p>Returns the GitHub URL, or nil if not applicable.</p>
 
-</section><section class="api h3 markdown_private_method"><h3 class="api" id="markdown_private_method">markdown <span class="type">private method</span>
+<br class="post-pre">
+
+</section><section class="api after-pre h3 locals_method"><h3 class="api after-pre" id="locals_method">locals <span class="type">method</span>
+</h3>
+<pre class=" lang- prettyprint right"><code>readme.locals
+#=&gt; { :title =&gt; 'My project', ... }
+</code></pre>
+<p>Returns a hash with the local variables to be used for the ERB template.</p>
+
+<br class="post-pre">
+
+</section><section class="api after-pre h3 markdown_private_method"><h3 class="api after-pre" id="markdown_private_method">markdown <span class="type">private method</span>
 </h3>
 <pre class=" lang- prettyprint right"><code>markdown.render(md)
 </code></pre>
@@ -149,7 +268,7 @@ If <code>filename</code> is given, it will be set as the <em>source_file</em>.</
 <br class="post-pre">
 
 
-</section></section><section class=" after-pre h2 acknowledgements"><h2 id="acknowledgements" class=" after-pre">Acknowledgements</h2>
+</section></section></section><section class=" after-pre h2 acknowledgements"><h2 id="acknowledgements" class=" after-pre">Acknowledgements</h2>
 
 <p>© 2011, Rico Sta. Cruz. Released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT 
 License</a>.</p>
@@ -166,7 +285,47 @@ License</a>.</p>
 <a href="http://github.com/rstacruz">Github</a> (@rstacruz)</li>
 <li>
 <a href="http://twitter.com/rstacruz">Twitter</a> (@rstacruz)</li>
-</ul></section></section></div>
+</ul></section></section></section></section><aside id="toc"><h1>Reacco</h1>
+<nav class="level-2"><h3><a href="#usage">Usage</a></h3>
+<ul></ul></nav><h2><a href="#api_reference">API reference</a></h2>
+<nav class="level-2"><h3><a href="#reacco_module">Reacco <span class="type">module</span>
+</a></h3>
+<ul>
+<li><a href="#root_class_method">root <span class="type">class method</span>
+</a></li>
+<li><a href="#markdown_class_method">markdown <span class="type">class method</span>
+</a></li>
+</ul></nav><nav class="level-2"><h3><a href="#reacco_readme_class">Reacco::Readme <span class="type">class</span>
+</a></h3>
+<ul>
+<li><a href="#file_method">file <span class="type">method</span>
+</a></li>
+<li><a href="#switches_method">switches <span class="type">method</span>
+</a></li>
+<li><a href="#exists_method">exists? <span class="type">method</span>
+</a></li>
+<li><a href="#raw_method">raw <span class="type">method</span>
+</a></li>
+<li><a href="#title_method">title <span class="type">method</span>
+</a></li>
+<li><a href="#raw_html_method">raw_html <span class="type">method</span>
+</a></li>
+<li><a href="#inject_api_block_method">inject_api_block <span class="type">method</span>
+</a></li>
+<li><a href="#doc_options_method">doc<span class="args">([options])</span> <span class="type">method</span>
+</a></li>
+<li><a href="#html_method">html <span class="type">method</span>
+</a></li>
+<li><a href="#github_method">github <span class="type">method</span>
+</a></li>
+<li><a href="#locals_method">locals <span class="type">method</span>
+</a></li>
+<li><a href="#markdown_private_method">markdown <span class="type">private method</span>
+</a></li>
+<li><a href="#slugify_private_method">slugify <span class="type">private method</span>
+</a></li>
+</ul></nav><nav class="level-2"><h3><a href="#acknowledgements">Acknowledgements</a></h3>
+<ul></ul></nav></aside></div>
   <script type='text/javascript' src='http://cachedcommons.org/cache/prettify/1.0.0/javascripts/prettify-min.js'></script>
   <script>prettyPrint();</script>
 </body>

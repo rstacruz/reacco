@@ -295,6 +295,7 @@ aside#toc h1 {
   text-shadow: none;
   font-size: 1.3em; }
 
+aside#toc h2,
 aside#toc h3 {
   border-top: solid 1px #ddd;
   padding-top: 10px; }

@@ -14,14 +14,20 @@ module Reacco
   # Returns the root path of the Reacco gem.
   # You may pass additional parameters.
   #
-  #     Reacco.root      #=> '/usr/local/ruby/gems/reacco-0.0.1'
+  #     Reacco.root
+  #     #=> '/usr/local/ruby/gems/reacco-0.0.1'
   #
   def root(*a)
     File.join File.expand_path('../../', __FILE__), *a
   end
 
   # ### markdown [class method]
-  # Returns the Redcarpet Markdown processor.
+  # Returns the Redcarpet Markdown processor.  This is an instance of
+  # `Redcarpet` with all the right options plugged in.
+  #
+  #     Reacco.markdown
+  #     #=> #<Redcarpet::Markdown ...>
+  #
   def markdown
     Redcarpet::Markdown.new(Redcarpet::Render::HTML,
       :fenced_code_blocks => true)

@@ -162,6 +162,7 @@ module Reacco
     def locals
       { :title      => title,
         :body_class => switches.join(' '), 
+        :analytics  => @options[:analytics],
         :github     => github }
     end
 

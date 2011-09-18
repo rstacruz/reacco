@@ -27,6 +27,7 @@ if ARGV == ['-h'] || ARGV == ['--help']
   tip "      --api PATH         Where to get stuff."
   tip ""
   tip "More:"
+  tip "      --analytics ID     Google Analytics ID."
   tip "      --github REPO      Adds a 'Fork me on GitHub' badge. Repo should be in"
   tip "                         'username/reponame' format."
   tip "  -o, --output PATH      Sets the path to put HTML files in. Defaults to 'doc/'."
@@ -35,13 +36,14 @@ if ARGV == ['-h'] || ARGV == ['--help']
 
 else
   # Build options from arguments.
-  switches = [:literate, :toc]
-  docpath  = ARGV.extract('-o') || ARGV.extract('--output') || 'doc'
-  template = ARGV.extract('-t') || ARGV.extract('--template') || nil
-  github   = ARGV.extract('--github') || nil
-  css      = ARGV.extract('--css') || nil
-  awesome  = ARGV.delete('-a')  || ARGV.extract('--awesome')
-  options  = Hash.new
+  switches  = [:literate, :toc]
+  docpath   = ARGV.extract('-o') || ARGV.extract('--output') || 'doc'
+  template  = ARGV.extract('-t') || ARGV.extract('--template') || nil
+  analytics = ARGV.extract('--analytics') || nil
+  github    = ARGV.extract('--github') || nil
+  css       = ARGV.extract('--css') || nil
+  awesome   = ARGV.delete('-a')  || ARGV.extract('--awesome')
+  options   = Hash.new
 
   extract = Array.new
   while (x = ARGV.extract('--api'))
@@ -54,7 +56,8 @@ else
 
   switches.each { |opt| options[opt] = true }  if awesome
 
-  options[:github] = github  if github
+  options[:github]    = github     if github
+  options[:analytics] = analytics  if analytics
 
   if ARGV.any?
     puts "Invalid usage. See `reacco --help` for help."

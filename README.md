@@ -72,6 +72,14 @@ class Reacco
 end
 ```
 
+#### Adding the placeholder
+To specify where the docs will be in the README, put a line with the text 
+`[](#api_reference)`. This will tell Reacco where to "inject" your API 
+documentation.
+
+    # README.md:
+    Please see http://you.github.com/project. [](#api_reference)
+
 # API reference
 
 For usage and API reference, please see http://ricostacruz.com/reacco. [](#api_reference)

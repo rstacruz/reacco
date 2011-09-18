@@ -177,7 +177,7 @@ module Reacco
     # Puts `blocks` inside `raw_html`.
     def add_api(blocks)
       re1 = %r{^.*api reference goes here.*$}i
-      re2 = %r{^.*#api_reference.*$}i
+      re2 = %r{^.*href=['"]#api_reference['"].*$}i
 
       if raw_html =~ re1
         raw_html.gsub! re1, blocks

@@ -27,8 +27,9 @@ left), use `reacco --literate`.
 To extract documentation from your code files, add `--api <path here>`. This 
 extracts comment blocks from files in that path.
 
-As Reacco only parses out Markdown from your comments, almost all programming 
-languages are supported. It does not care about code at all, just comments.
+As Reacco only parses out Markdown from your comments, almost all languages that 
+comments in `#` and `//` are supported. It does not care about code at all, just 
+comments.
 
     $ reacco --literate --api lib/
 

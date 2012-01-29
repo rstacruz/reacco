@@ -92,7 +92,7 @@ module Reacco
     #     #=> "<h1>My project</h1>..."
     #
     def raw_html
-      @raw_html ||= markdown.render(raw)
+      @raw_html ||= markdown.render(raw).force_encoding('utf-8')
     end
 
     def raw_html=(str)
